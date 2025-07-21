@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insieme - Disability & Mental Health Support</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #38b000;
+            --pink: #f72585;
+            --teal: #2ec4b6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Hero Banner */
+        .hero-banner {
+            height: 100vh;
+            background: linear-gradient(rgba(60, 60, 60, 0.7), rgba(36, 36, 36, 0.8)), 
+                        url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 1000px;
+            z-index: 2;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 2rem;
+        }
+        
+        .logo i {
+            font-size: 3.5rem;
+            color: var(--accent);
+        }
+        
+        .logo h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .hero-btn {
+            background: var(--accent);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-btn:hover {
+            background: white;
+            color: var(--secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-btn.secondary {
+            background: transparent;
+            border: 2px solid white;
+        }
+        
+        .hero-btn.secondary:hover {
+            background: white;
+            color: var(--secondary);
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+        
+        .nav-logo i {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+        
+        .section {
+            margin-bottom: 6rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: var(--pink);
+            border-radius: 3px;
+        }
+        
+        .section-header p {
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-icon {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: var(--primary);
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(76, 201, 240, 0.1));
+        }
+        
+        .card-content {
+            padding: 2rem;
+        }
+        
+        .card h3 {
+            font-size: 1.7rem;
+            margin-bottom: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .card ul {
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .card li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.8rem;
+            font-size: 1.1rem;
+        }
+        
+        .card li:before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(120deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
+        }
+        
+        /* Highlight Section */
+        .highlight {
+            background: linear-gradient(120deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            padding: 4rem;
+            text-align: center;
+            margin: 5rem 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .highlight h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .highlight p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+        
+        .highlight .btn {
+            background: white;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+        
+        .highlight .btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+        
+        /* Testimonials */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .testimonial {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        
+        .testimonial:before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(67, 97, 238, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial p {
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #555;
+            position: relative;
+            z-index: 1;
+            padding: 1.5rem 0;
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+        
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1.5rem;
+            border: 3px solid var(--accent);
+        }
+        
+        .author-info h4 {
+            margin: 0;
+            color: var(--dark);
+            font-size: 1.3rem;
+        }
+        
+        .author-info p {
+            margin: 0;
+            color: #777;
+            font-style: normal;
+            font-size: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(120deg, var(--dark), #111);
+            color: white;
+            padding: 5rem 0 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-col h3 {
+            color: white;
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--accent);
+        }
+        
+        .footer-col p {
+            color: #bbb;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-col ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 4rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-banner {
+                height: auto;
+                padding: 6rem 2rem;
+            }
+            
+            .logo h1 {
+                font-size: 3rem;
+            }
+            
+            .tagline {
+                font-size: 1.3rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.3rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .logo h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .highlight {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+        <div class="hero-content">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <h1>Insieme</h1>
+            </div>
+            <p class="tagline">Empowering Abilities, Supporting Mental Health, Creating an Inclusive World</p>
+            <div class="hero-buttons">
+                <a href="#services" class="hero-btn">
+                    <i class="fas fa-hands"></i> Get Support
+                </a>
+                <a href="#donate" class="hero-btn secondary">
+                    <i class="fas fa-heart"></i> Make a Donation
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <i class="fas fa-hands-helping"></i>
+                <span>Insieme</span>
+            </a>
+            <div class="nav-links">
+                <a href="#awareness" class="active">Awareness</a>
+                <a href="#education">Education</a>
+                <a href="#legal">Legal Rights</a>
+                <a href="#services">Services</a>
+                <a href="#support">Support</a>
+                <a href="#donate">Donate</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Awareness Section -->
+        <section id="awareness" class="section">
+            <div class="section-header">
+                <h2>Awareness & Inclusion</h2>
+                <p>Breaking down barriers and building understanding for people with disabilities and mental health conditions</p>
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-wheelchair"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Disability Employment Quota</h3>
+                        <ul>
+                            <li>4-7% reservation in government jobs</li>
+                            <li>3-5% quota in private sector employment</li>
+                            <li>Special recruitment drives for PwD</li>
+                            <li>Reserved seats in educational institutions</li>
+                        </ul>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Mental Health Awareness</h3>
+                        <ul>
+                            <li>Breaking stigmas around mental illness</li>
+                            <li>Community support programs</li>
+                            <li>Workplace mental health initiatives</li>
+                            <li>Educational workshops in schools</li>
+                        </ul>
+                        <a href="#" class="btn">Get Involved</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-universal-access"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Accessibility Initiatives</h3>
+                        <ul>
+                            <li>Public space accessibility audits</li>
+                            <li>Assistive technology resources</li>
+                            <li>Transportation accessibility</li>
+                            <li>Digital accessibility standards</li>
+                        </ul>
+                        <a href="#" class="btn">View Resources</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education & Financial Support -->
+        <section id="education" class="section">
+            <div class="section-header">
+                <h2>Education & Financial Support</h2>
+                <p>Resources and financial assistance programs for people with disabilities</p>
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Bank Loans for Disabled Persons</h3>
+                        <ul>
+                            <li>Low-interest business startup loans</li>
+                            <li>Special education loan schemes</li>
+                            <li>Collateral-free loans up to ₹10 lakhs</li>
+                            <li>Extended repayment periods</li>
+                        </ul>
+                        <a href="#" class="btn">Apply Now</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Government Stipends & Pensions</h3>
+                        <ul>
+                            <li>Disability pension (₹500-3000/month)</li>
+                            <li>Educational scholarships</li>
+                            <li>Healthcare reimbursement</li>
+                            <li>Free assistive devices</li>
+                        </ul>
+                        <a href="#" class="btn">Check Eligibility</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Special Education Programs</h3>
+                        <ul>
+                            <li>Reserved university seats</li>
+                            <li>Special examination provisions</li>
+                            <li>Accessible learning materials</li>
+                            <li>Vocational training programs</li>
+                        </ul>
+                        <a href="#" class="btn">Find Programs</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Legal Rights -->
+        <section id="legal" class="section">
+            <div class="section-header">
+                <h2>Legal Rights & Policies</h2>
+                <p>Know your rights under disability protection laws</p>
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-scale-balanced"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Rights of Persons with Disabilities Act</h3>
+                        <ul>
+                            <li>5% reservation in government jobs</li>
+                            <li>Accessibility requirements for public spaces</li>
+                            <li>Right to inclusive education</li>
+                            <li>Protection from discrimination</li>
+                        </ul>
+                        <a href="#" class="btn">Read Full Act</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>UN Convention on Disability Rights</h3>
+                        <ul>
+                            <li>Equal opportunities in employment</li>
+                            <li>Right to live independently</li>
+                            <li>Access to justice</li>
+                            <li>Freedom from exploitation</li>
+                        </ul>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <div class="highlight-content">
+                    <h3>Need Legal Assistance?</h3>
+                    <p>Our team of disability rights lawyers provides free consultation to help you understand and exercise your rights</p>
+                    <a href="#" class="btn">Schedule Free Consultation</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Success Stories</h2>
+                <p>Inspiring journeys of people we've supported</p>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <p>"With Insieme's guidance, I secured a low-interest bank loan and started my own café. The disability employment quota helped me hire two more people with disabilities. We're now a fully accessible space!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Priya K.">
+                        <div class="author-info">
+                            <h4>Priya K.</h4>
+                            <p>Wheelchair user & Entrepreneur</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p>"The government stipend helped me complete my education, and Insieme's legal team fought for my right to reasonable accommodations at work. Today I'm a software engineer at a top tech company."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul S.">
+                        <div class="author-info">
+                            <h4>Rahul S.</h4>
+                            <p>Visually impaired developer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p>"After my diagnosis, Insieme connected me with mental health resources and legal support. They helped me understand my workplace rights and secure the accommodations I needed to thrive professionally."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ananya R.">
+                        <div class="author-info">
+                            <h4>Ananya R.</h4>
+                            <p>Mental health advocate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Insieme</h3>
+                <p>Empowering people with disabilities through awareness, education, and legal support.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#awareness"><i class="fas fa-arrow-right"></i> Awareness</a></li>
+                    <li><a href="#education"><i class="fas fa-arrow-right"></i> Financial Support</a></li>
+                    <li><a href="#legal"><i class="fas fa-arrow-right"></i> Legal Rights</a></li>
+                    <li><a href="#"><i class="fas fa-arrow-right"></i> Success Stories</a></li>
+                    <li><a href="#"><i class="fas fa-arrow-right"></i> Volunteer</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-phone"></i> Helpline: 1800-INSIEME</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="#"><i class="fas fa-tools"></i> Accessibility Tools</a></li>
+                    <li><a href="#"><i class="fas fa-book"></i> Resources</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Subscribe for updates on disability rights and support programs.</p>
+                <form>
+                    <input type="email" placeholder="Your email" style="padding: 14px; width: 100%; border-radius: 50px; border: none; margin-bottom: 15px; font-size: 1rem;">
+                    <button type="submit" class="btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Insieme. All rights reserved. | <a href="#" style="color: var(--accent);">Privacy Policy</a> | <a href="#" style="color: var(--accent);">Accessibility Statement</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation for cards on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            const testimonials = document.querySelectorAll('.testimonial');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.style.opacity = '1';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.transform = 'translateY(50px)';
+                card.style.opacity = '0';
+                card.style.transition = 'all 0.8s ease';
+                observer.observe(card);
+            });
+            
+            testimonials.forEach(testimonial => {
+                testimonial.style.transform = 'translateY(50px)';
+                testimonial.style.opacity = '0';
+                testimonial.style.transition = 'all 0.8s ease';
+                observer.observe(testimonial);
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
