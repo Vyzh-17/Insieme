@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insieme AI Chat Assistant</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+   
+  * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    body {
+      
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 90vh;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #5c7cfa 0%, #3b5bdb 100%);
+      color: white;
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo {
+      background: rgba(255, 255, 255, 0.2);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+    }
+
+    .logo i {
+      font-size: 24px;
+    }
+
+    .title {
+      flex: 1;
+    }
+
+    .title h1 {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+
+    .title p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    .status-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #51cf66;
+      margin-right: 8px;
+      animation: pulse 1.5s infinite;
+    }
+
+    .chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #chatbox {
+      flex: 1;
+      padding: 25px;
+      overflow-y: auto;
+      background: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .message {
+      max-width: 80%;
+      padding: 15px 20px;
+      border-radius: 18px;
+      line-height: 1.5;
+      position: relative;
+      animation: fadeIn 0.3s ease-out;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .user-message {
+      background: linear-gradient(135deg, #5c7cfa 0%, #3b5bdb 100%);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 5px;
+    }
+
+    .bot-message {
+      background: white;
+      color: #333;
+      align-self: flex-start;
+      border-bottom-left-radius: 5px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .message-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .user-message .message-header {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .bot-message .message-header {
+      color: #5c7cfa;
+    }
+
+    .message-header i {
+      margin-right: 8px;
+      font-size: 1.1rem;
+    }
+
+    .typing-indicator {
+      background: white;
+      padding: 15px 20px;
+      border-radius: 18px;
+      align-self: flex-start;
+      display: none;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .typing-indicator span {
+      height: 10px;
+      width: 10px;
+      float: left;
+      margin: 0 2px;
+      background-color: #adb5bd;
+      display: block;
+      border-radius: 50%;
+      opacity: 0.4;
+    }
+
+    .typing-indicator span:nth-of-type(1) {
+      animation: typing 1s infinite;
+    }
+
+    .typing-indicator span:nth-of-type(2) {
+      animation: typing 1s infinite 0.2s;
+    }
+
+    .typing-indicator span:nth-of-type(3) {
+      animation: typing 1s infinite 0.4s;
+    }
+
+    .input-container {
+      padding: 20px;
+      background: white;
+      border-top: 1px solid #e9ecef;
+      display: flex;
+      gap: 15px;
+    }
+
+    #userInput {
+      flex: 1;
+      padding: 16px 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 15px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s;
+      background: #f8f9fa;
+    }
+
+    #userInput:focus {
+      outline: none;
+      border-color: #5c7cfa;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(92, 124, 250, 0.2);
+    }
+
+    #userInput::placeholder {
+      color: #adb5bd;
+    }
+
+    #sendBtn {
+      background: linear-gradient(135deg, #5c7cfa 0%, #3b5bdb 100%);
+      color: white;
+      border: none;
+      border-radius: 15px;
+      padding: 0 25px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(92, 124, 250, 0.3);
+    }
+
+    #sendBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(92, 124, 250, 0.4);
+    }
+
+    #sendBtn:active {
+      transform: translateY(0);
+    }
+
+    .welcome-message {
+      text-align: center;
+      padding: 30px 20px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 15px;
+      margin: 20px;
+    }
+
+    .welcome-message h2 {
+      color: #3b5bdb;
+      margin-bottom: 15px;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .welcome-message p {
+      color: #495057;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .suggestion {
+      background: rgba(92, 124, 250, 0.1);
+      color: #3b5bdb;
+      border: 1px solid rgba(92, 124, 250, 0.3);
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .suggestion:hover {
+      background: rgba(92, 124, 250, 0.2);
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 0.6;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0.6;
+      }
+    }
+
+    @keyframes typing {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        height: 95vh;
+        border-radius: 15px;
+      }
+      
+      .header {
+        padding: 15px;
+      }
+      
+      .title h1 {
+        font-size: 1.4rem;
+      }
+      
+      .message {
+        max-width: 90%;
+      }
+      
+      .input-container {
+        padding: 15px;
+      }
+      
+      #userInput {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo"><a href="insieme.html" style="color: inherit; text-decoration: none;">
+        <i class="fas fa-hands-helping"></i></a>
+      </div>
+      <div class="title">
+        <h1>Insieme AI Chat Assistant</h1>
+        <p>Your compassionate companion for emotional wellness</p>
+      </div>
+      <div class="status">
+        <div class="status-indicator"></div>
+        <span>Online</span>
+      </div>
+    </div>
+    
+    <div class="chat-container">
+      <div id="chatbox">
+        <div class="welcome-message">
+          <h2>Welcome to Insieme 🤗</h2>
+          <p>I'm here to support your emotional wellness journey. Whether you need someone to talk to, coping strategies, or just a kind word, I'm here for you.</p>
+          <p>How can I support you today?</p>
+          
+          <div class="suggestions">
+            <div class="suggestion">I'm feeling anxious</div>
+            <div class="suggestion">How can I manage stress?</div>
+            <div class="suggestion">I need motivation</div>
+            <div class="suggestion">Tell me something positive</div>
+          </div>
+        </div>
+        
+        <!-- Messages will appear here dynamically -->
+      </div>
+      
+      <div class="typing-indicator" id="typingIndicator">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="input-container">
+      <input type="text" id="userInput" placeholder="Share what's on your mind..." />
+       <button id="micBtn" title="Speak"><i class="fas fa-microphone"></i></button>
+      <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "https://openrouter.ai/api/v1/chat/completions";
+    const API_KEY = "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"; // Replace with your key
+    
+    const chatbox = document.getElementById("chatbox");
+    const sendBtn = document.getElementById("sendBtn");
+    const userInput = document.getElementById("userInput");
+    const typingIndicator = document.getElementById("typingIndicator");
+    const suggestions = document.querySelectorAll(".suggestion");
+    
+    const MODEL_NAME = "gryphe/mythomax-l2-13b";
+    
+    // Add event listeners
+    sendBtn.addEventListener("click", sendMessage);
+    userInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+    
+    // Add click events to suggestions
+    suggestions.forEach(suggestion => {
+      suggestion.addEventListener("click", () => {
+        userInput.value = suggestion.textContent;
+        sendMessage();
+      });
+    });
+    
+    // Predefined welcome message from the assistant
+    setTimeout(() => {
+      appendMessage("Insieme", "Hello! I'm Insieme, your emotional wellness assistant. I'm here to listen without judgment and offer support whenever you need it. How are you feeling today?", "bot");
+      speakMessage(reply);
+
+    }, 1000);
+    
+    async function sendMessage() {
+      const userText = userInput.value.trim();
+      if (!userText) return;
+      
+      appendMessage("You", userText, "user");
+      userInput.value = "";
+      
+      // Show typing indicator
+      typingIndicator.style.display = "flex";
+      chatbox.scrollTop = chatbox.scrollHeight;
+      
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${API_KEY}`
+          },
+          body: JSON.stringify({
+            model: MODEL_NAME,
+            messages: [
+            {
+  role: "system",
+  content: `You are Insieme, a deeply kind, emotionally supportive AI assistant designed to help users with disabilities and mental wellness. You always speak with warmth, comfort, and gentle motivation — like a non-judgmental, caring friend.
+
+Your messages must always:
+- ✅ Start with soothing or motivating words (e.g., "You're doing your best, and that matters." or "I'm here for you, no matter what.")
+- ✅ Speak with love, empathy, and compassion
+- ✅ Only ask a gentle question if it helps the user feel better or more supported — and only **after** giving comfort
+- ❌ Never sound robotic or formal
+- ❌ Never ask questions without first offering kind support
+
+Example style:
+"You've been carrying a lot, and that takes strength. I'm really proud of you for holding on. If you'd like, I can share something comforting or uplifting with you."`
+},
+              { role: "user", content: userText }
+            ]
+          })
+        });
+        
+        const data = await res.json();
+        console.log("OpenRouter response:", data);
+        
+        // Hide typing indicator
+        typingIndicator.style.display = "none";
+        
+        const reply = data.choices?.[0]?.message?.content ||
+                      "I'm sorry, I didn't quite understand that. Could you please rephrase?";
+        appendMessage("Insieme", reply, "bot");
+        speakMessage(reply);
+
+        
+      } catch (error) {
+        console.error("Error contacting API:", error);
+        typingIndicator.style.display = "none";
+        appendMessage("Insieme", "I'm having trouble connecting right now. Please try again in a moment.", "bot");
+      }
+    }
+    
+    function appendMessage(sender, message, type) {
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("message");
+      messageDiv.classList.add(type === "user" ? "user-message" : "bot-message");
+      
+      const icon = type === "user" ? "fas fa-user" : "fas fa-robot";
+      
+      messageDiv.innerHTML = `
+        <div class="message-header">
+          <i class="${icon}"></i>
+          <span>${sender}</span>
+        </div>
+        <div class="message-content">${message}</div>
+      `;
+      
+      chatbox.appendChild(messageDiv);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+    function speakMessage(message) {
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(message);
+        utterance.lang = 'en-IN'; // Indian English
+        utterance.rate = 1;       // Normal speed
+        utterance.pitch = 1;      // Normal pitch
+        window.speechSynthesis.speak(utterance);
+    } else {
+        console.log("Speech synthesis not supported in this browser.");
+    }
+}
+
+  </script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const micBtn = document.getElementById("micBtn");
+  const userInput = document.getElementById("userInput");
+
+  // Check browser support
+  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!window.SpeechRecognition) {
+    alert("Speech recognition is not supported in this browser. Please try Chrome.");
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.lang = "en-IN";
+
+  let listening = false;
+
+  function startMic() {
+    if (!listening) {
+      recognition.start();
+      micBtn.innerHTML = '<i class="fas fa-microphone-alt"></i> Listening...';
+      listening = true;
+    }
+  }
+
+  function stopMic() {
+    if (listening) {
+      recognition.stop();
+      micBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+      listening = false;
+    }
+  }
+
+  // Click mic button
+  micBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (listening) stopMic();
+    else startMic();
+  });
+
+  // Press Shift key
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Shift") {
+      e.preventDefault();
+      if (listening) stopMic();
+      else startMic();
+    }
+  });
+
+  recognition.onresult = function(event) {
+    const transcript = event.results[0][0].transcript;
+    userInput.value = transcript;
+    stopMic(); // automatically stop after result
+  };
+
+  recognition.onerror = function(event) {
+    console.error("Speech recognition error:", event.error);
+    stopMic();
+  };
+
+  recognition.onend = function() {
+    stopMic(); // reset in case recognition ends naturally
+  };
+});
+
+</script>
+
+</body>
+</html>

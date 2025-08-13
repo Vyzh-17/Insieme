@@ -566,14 +566,16 @@
                     <i class="fas fa-hands-helping"></i>
                 </div>
                 <div class="logo-text">Insieme</div>
+                <button onclick="startReading()"> Read Page</button>
+                <button onclick="stopReading()"> Stop</button>
             </div>
             <nav>
                 <ul>
-                    <li><a href="#awareness" class="active">Awareness</a></li>
+                    <li><a href="#awareness">Awareness</a></li>
                     <li><a href="#education">Education</a></li>
                     <li><a href="#legal">Legal Rights</a></li>
-                    <li><a href="#support">Support</a></li>
-                    <li><a href="#donate">Donate</a></li>
+                    <li><a href="service/service_request.php">Services</a></li>
+                    <li><a href="assdonation/index.php">Donate</a></li>
                 </ul>
             </nav>
         </div>
@@ -587,10 +589,11 @@
             <h1>Empowering Abilities, Supporting Mental Health</h1>
             <p>Creating an inclusive world through awareness, education, and legal support for people with disabilities and mental health conditions</p>
             <div class="hero-buttons">
-                <a href="#services" class="btn btn-primary">
-                    <i class="fas fa-hands"></i> Get Support
+                <a href="index.html" class="btn btn-primary">
+                    <i class="fas fa-hands"></i> AI Support
                 </a>
-                <a href="#donate" class="btn btn-secondary">
+                
+                <a href="fundraiser/index.html" class="btn btn-secondary">
                     <i class="fas fa-heart"></i> Make a Donation
                 </a>
             </div>
@@ -650,7 +653,7 @@
                             <li>Assistive technology resources</li>
                             <li>Transportation accessibility</li>
                             <li>Digital accessibility standards</li>
-                        </ul>
+                        </ul> <br>
                         <a href="#" class="btn btn-primary">View Resources</a>
                     </div>
                 </div>
@@ -660,6 +663,7 @@
         <!-- Education & Financial Support -->
         <section id="education" class="section">
             <div class="section-header">
+                <br> <br>
                 <h2>Education & Financial Support</h2>
                 <p>Resources and financial assistance programs for people with disabilities</p>
             </div>
@@ -677,8 +681,8 @@
                             <li>Collateral-free loans up to ₹10 lakhs</li>
                             <li>Extended repayment periods</li>
                             <li>Subsidized interest rates</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary">Apply Now</a>
+                        </ul> <br>
+                        <a href="https://depwd.gov.in/en/national-handicapped-finance-and-development-corporation/" class="btn btn-primary">Apply Now</a>
                     </div>
                 </div>
                 
@@ -694,8 +698,8 @@
                             <li>Healthcare reimbursement</li>
                             <li>Free assistive devices</li>
                             <li>Transportation concessions</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary">Check Eligibility</a>
+                        </ul><br> <br> <br>
+                        <a href="https://www.scd.tn.gov.in/Mintantance_allowance.php" class="btn btn-primary">Check Eligibility</a>
                     </div>
                 </div>
                 
@@ -720,7 +724,7 @@
 
         <!-- Legal Rights -->
         <section id="legal" class="section">
-            <div class="section-header">
+            <div class="section-header"><br> <br>
                 <h2>Legal Rights & Policies</h2>
                 <p>Know your rights under disability protection laws</p>
             </div>
@@ -739,7 +743,7 @@
                             <li>Protection from discrimination</li>
                             <li>Legal recourse for rights violations</li>
                         </ul>
-                        <a href="#" class="btn btn-primary">Read Full Act</a>
+                        <a href="https://nhrc.nic.in/sites/default/files/DisabilityRights.pdf" class="btn btn-primary">Read Full Act</a>
                     </div>
                 </div>
                 
@@ -756,7 +760,7 @@
                             <li>Freedom from exploitation</li>
                             <li>Participation in political life</li>
                         </ul>
-                        <a href="#" class="btn btn-primary">Learn More</a>
+                        <a href="https://nda.ie/disability-policy/uncrpd" class="btn btn-primary">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -765,7 +769,7 @@
                 <div class="highlight-content">
                     <h3>Need Legal Assistance?</h3>
                     <p>Our team of disability rights lawyers provides free consultation to help you understand and exercise your rights</p>
-                    <a href="#" class="btn btn-primary">Schedule Free Consultation</a>
+                    <a href="service/service_request.php" class="btn btn-primary">Schedule Free Consultation</a>
                 </div>
             </div>
         </section>
@@ -897,5 +901,34 @@
             });
         });
     </script>
+<script>
+let isReading = false;  
+let utterance;
+
+document.addEventListener("keydown", function(event) {
+    if (event.key.toLowerCase() === "w") { // toggle on W
+        if (!isReading) {
+            startReading();
+        } else {
+            stopReading();
+        }
+    }
+});
+
+function startReading() {
+    if (isReading) return; // avoid double start
+    let text = document.body.innerText; 
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US"; 
+    speechSynthesis.speak(utterance);
+    isReading = true;
+}
+
+function stopReading() {
+    speechSynthesis.cancel(); 
+    isReading = false;
+}
+</script>
+
 </body>
 </html>
