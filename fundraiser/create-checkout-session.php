@@ -8,7 +8,7 @@ if (!isset($_POST['amount'])) {
     exit;
 }
 
-\Stripe\Stripe::setApiKey('sk_test_51RnjP3R1bqqQjQ0vo9pgcyWNvp4h5ukrrZspnyjqGSObOAUFCpfZpFBcwsi3Uni6wBQsJQ84jMtj4728vJEDHkgN00a3hzNaMs');
+\Stripe\Stripe::setApiKey('');
 
 $amount = intval($_POST['amount']);
 
