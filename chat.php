@@ -3,7 +3,7 @@ $input = json_decode(file_get_contents("php://input"), true);
 $userMessage = isset($input['message']) ? $input['message'] : "Hello"; // fallback
 
 
-$apiKey = ""; // Replace this with your OpenAI key
+$apiKey = "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"; // Replace this with your OpenAI key
 
 $data = [
     "model" => "gpt-3.5-turbo",
