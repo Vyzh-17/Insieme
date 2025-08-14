@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $file_ext = pathinfo($id_file['name'], PATHINFO_EXTENSION);
                 $new_filename = 'id_'.bin2hex(random_bytes(8)).'.'.strtolower($file_ext);
-                $upload_path = 'uploads/verification/'.$new_filename;
+                $upload_path = 'uploads/'.$new_filename;
                 
                 if (move_uploaded_file($id_file['tmp_name'], $upload_path)) {
                     // Insert request with transaction
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         if ($insert->execute()) {
                             $conn->commit();
-                            $message = "✅ Request submitted successfully! Admin will review your application.";
+                            $message = " Request submitted successfully! Admin will review your application.";
                         } else {
                             throw new Exception("Database error: ".$conn->error);
                         }
@@ -416,7 +416,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div>
                         <p><?= $message ?></p>
                         <p style="margin-top: 8px;">
-                            <a href="devices.php" style="color: inherit; text-decoration: underline;">Browse other devices</a>
+                            <a href="index.php" style="color: inherit; text-decoration: underline;">Browse other devices</a>
                         </p>
                     </div>
                 </div>

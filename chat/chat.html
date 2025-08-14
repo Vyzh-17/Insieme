@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Insieme Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+   <style>
+        :root {
+            --primary: #E76F51;
+            --secondary: #F4A261;
+            --light: #E9C46A;
+            --dark: #264653;
+            --accent: #2A9D8F;
+            --text: #333333;
+            --white: #FFF8F0;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--white) 0%, #f0f0f0 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text);
+        }
+        
+        .header {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark);
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+        
+        .header::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+        
+        .chat-container {
+            width: 100%;
+            max-width: 700px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .chat-header {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--accent) 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.2rem;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        #chat-box {
+            height: 450px;
+            padding: 25px;
+            overflow-y: auto;
+            background-color: var(--white);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            border-radius: 25px;
+            max-width: 70%;
+            word-wrap: break-word;
+            line-height: 1.5;
+            position: relative;
+            font-size: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .sent {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+            align-self: flex-end;
+        }
+        
+        .received {
+            background: white;
+            color: var(--text);
+            margin-right: auto;
+            border-bottom-left-radius: 5px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            align-self: flex-start;
+        }
+        
+        .message-username {
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .sent .message-username {
+            color: rgba(255, 255, 255, 0.8);
+        }
+            a {
+    color: inherit;           /* use parent element's color */
+    text-decoration: none;    /* remove underline if you want */
+}
+        .received .message-username {
+            color: var(--accent);
+        }
+        
+        .timestamp {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 8px;
+            text-align: right;
+            display: block;
+        }
+        
+        .received .timestamp {
+            color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .input-area {
+            display: flex;
+            padding: 20px;
+            background-color: white;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        #message-input {
+            flex-grow: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 30px;
+            outline: none;
+            font-size: 15px;
+            background-color: var(--white);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s;
+        }
+        
+        #message-input:focus {
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05), 0 0 0 2px var(--light);
+        }
+        
+        #message-input::placeholder {
+            color: #aaa;
+        }
+        
+        #send-btn {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-left: 15px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 157, 143, 0.4);
+        }
+        
+        #send-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Scrollbar styling */
+        #chat-box::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        #chat-box::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 4px;
+        }
+        
+        #chat-box::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        
+        #chat-box::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Floating decoration elements */
+        .decoration {
+            position: fixed;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            bottom: -50px;
+            left: -50px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .chat-container {
+                border-radius: 0;
+                max-width: 100%;
+                height: 100vh;
+            }
+            
+            #chat-box {
+                height: calc(100vh - 160px);
+            }
+            
+            .header {
+                margin: 15px 0;
+            }
+            
+            .header h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration circle-1"></div>
+    <div class="decoration circle-2"></div>
+    
+    <div class="header"><a href="../insieme.html">
+        <h2><i class="fas fa-hands-helping"></i> Insieme</h2></a>
+    </div>
+    
+    <div class="chat-container">
+        <div class="chat-header">
+            <span>CommunityChat</span>
+        </div>
+        <div id="chat-box"></div>
+        <div class="input-area">
+            <input type="text" id="message-input" placeholder="Write something beautiful...">
+            <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Load messages
+        function loadMessages() {
+            $.get('load_messages.php', function(data) {
+                $('#chat-box').html(data);
+                $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
+                
+                // Add classes to messages
+                $('.message').each(function() {
+                    // Example logic - adjust based on your actual message structure
+                    if($(this).hasClass('user-message')) {
+                        $(this).addClass('sent');
+                    } else {
+                        $(this).addClass('received');
+                    }
+                    
+                    // Add timestamp if not present
+                    if(!$(this).find('.timestamp').length) {
+                        const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                        $(this).append(`<span class="timestamp">${time}</span>`);
+                    }
+                });
+            });
+        }
+
+        $(document).ready(function() {
+            loadMessages();
+            setInterval(loadMessages, 2000);
+
+            $('#send-btn').click(sendMessage);
+            
+            $('#message-input').keypress(function(e) {
+                if(e.which == 13) {
+                    sendMessage();
+                }
+            });
+            
+            function sendMessage() {
+                var msg = $('#message-input').val();
+                if(msg.trim() != '') {
+                    $.post('send_message.php', { message: msg }, function(response) {
+                        console.log(response);
+                        $('#message-input').val('');
+                        loadMessages();
+                    });
+                }
+            }
+            
+            // Add some sample messages for demonstration
+            setTimeout(() => {
+                const sampleMessages = [
+                   
+                ];
+                
+                sampleMessages.forEach(msg => {
+                    const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    const messageHtml = `
+                        <div class="message ${msg.type}">
+                            <span class="message-username">${msg.user}</span>
+                            ${msg.text}
+                            <span class="timestamp">${time}</span>
+                        </div>
+                    `;
+                    $('#chat-box').append(messageHtml);
+                });
+                
+                $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
+            }, 500);
+        });
+    </script>
+</body>
+</html>

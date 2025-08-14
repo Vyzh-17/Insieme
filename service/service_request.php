@@ -445,6 +445,7 @@ $conn->close();
             margin-top: 6px;
             font-style: italic;
         }
+    
 
         footer {
             text-align: center;

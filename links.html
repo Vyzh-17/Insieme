@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insieme - Inclusive Community</title>
+    <style>
+        :root {
+            --primary: #5E4AE3;
+            --secondary: #947BD3;
+            --accent: #F0A7A0;
+            --light: #F7F0F5;
+            --dark: #1A1423;
+            --text: #2D2D2A;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 4rem 0 6rem;
+            text-align: center;
+            margin-bottom: -3rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(94, 74, 227, 0.2);
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 3.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            font-weight: 400;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .nav-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            min-height: 180px;
+            text-decoration: none;
+            color: var(--text);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .nav-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
+            transition: height 0.3s ease;
+        }
+        
+        .nav-button:hover::before, 
+        .nav-button:focus::before {
+            height: 100%;
+            opacity: 0.1;
+        }
+        
+        .nav-button:hover, 
+        .nav-button:focus {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+            outline: none;
+        }
+        
+        .nav-button i {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover i, 
+        .nav-button:focus i {
+            transform: scale(1.1);
+            color: var(--primary);
+        }
+        
+        .nav-button span {
+            font-size: 1.4rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover span, 
+        .nav-button:focus span {
+            color: var(--primary);
+        }
+        
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            z-index: 100;
+            font-weight: bold;
+            border-radius: 0 0 4px 4px;
+        }
+        
+        .skip-link:focus {
+            left: 0;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 6rem;
+            padding: 3rem 1rem;
+            background-color: var(--dark);
+            color: white;
+            position: relative;
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: linear-gradient(to top, var(--dark), transparent);
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-links a:hover, 
+        .social-links a:focus {
+            transform: translateY(-3px);
+            outline: none;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .nav-button {
+                transition: none;
+            }
+            
+            .nav-button:hover, 
+            .nav-button:focus {
+                transform: none;
+            }
+            
+            .nav-button i,
+            .nav-button span {
+                transition: none;
+            }
+        }
+        
+        /* Unique decorative elements */
+        .decor-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            top: -150px;
+            right: -150px;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--secondary);
+            bottom: -100px;
+            left: -100px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Skip to content link for screen readers -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header>
+        <div class="decor-circle circle-1"></div>
+        <div class="decor-circle circle-2"></div>
+        <div class="container">
+            <h1>Insieme</h1>
+            <p class="subtitle">Together we create an inclusive world where everyone belongs</p>
+        </div>
+    </header>
+    
+    <main id="main-content" class="container">
+        <div class="button-grid">
+            <!-- Button 1 -->
+            <a href="#about" class="nav-button" aria-label="About Insieme">
+                <i class="fas fa-heart" aria-hidden="true"></i>
+                <span>Our Mission</span>
+            </a>
+            
+            <!-- Button 2 -->
+            <a href="#services" class="nav-button" aria-label="Our Services">
+                <i class="fas fa-hands" aria-hidden="true"></i>
+                <span>Accessibility Services</span>
+            </a>
+            
+            <!-- Button 3 -->
+            <a href="#events" class="nav-button" aria-label="Upcoming Events">
+                <i class="fas fa-calendar-star" aria-hidden="true"></i>
+                <span>Inclusive Events</span>
+            </a>
+            
+            <!-- Button 4 -->
+            <a href="#resources" class="nav-button" aria-label="Helpful Resources">
+                <i class="fas fa-universal-access" aria-hidden="true"></i>
+                <span>Accessibility Resources</span>
+            </a>
+            
+            <!-- Button 5 -->
+            <a href="#contact" class="nav-button" aria-label="Contact Information">
+                <i class="fas fa-comments" aria-hidden="true"></i>
+                <span>Get in Touch</span>
+            </a>
+            
+            <!-- Button 6 -->
+            <a href="#donate" class="nav-button" aria-label="Donation Options">
+                <i class="fas fa-hand-holding-heart" aria-hidden="true"></i>
+                <span>Support Our Work</span>
+            </a>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-logo">Insieme</div>
+        <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; 2023 Insieme. All rights reserved.</p>
+        <p>Designed with ♥ for accessibility</p>
+    </footer>
+</body>
+</html>

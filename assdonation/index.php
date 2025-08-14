@@ -488,8 +488,9 @@ $result = $conn->query($sql);
                     <span class="user-greeting">
                         <i class="fas fa-user-shield"></i> <?= htmlspecialchars($_SESSION['username']) ?>
                     </span>
-                    <a href="logout.php" class="btn btn-outline"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     <a href="admin_requests.php" class="btn btn-primary"><i class="fas fa-cog"></i> Admin Panel</a>
+                    <a href="logout.php" class="btn btn-outline"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    
                 <?php elseif (isset($_SESSION['username'])): ?>
                      <a href="post_device.php" class="btn btn-primary"><i class="fas fa-plus"></i> Post Device</a>
                     <span class="user-greeting"><a href="profile.php" class="btn btn-outline">
