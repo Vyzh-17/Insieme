@@ -1,595 +1,936 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Insieme AI Chat Assistant</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-   
-  * {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insieme - Disability & Mental Health Support</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --teal: #4cc9f0;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --dark: #212529;
+            --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-    body {
-      
-      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-      color: #333;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 800px;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 90vh;
-    }
-
-    .header {
-      background: linear-gradient(135deg, #5c7cfa 0%, #3b5bdb 100%);
-      color: white;
-      padding: 20px 30px;
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .logo {
-      background: rgba(255, 255, 255, 0.2);
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 15px;
-    }
-
-    .logo i {
-      font-size: 24px;
-    }
-
-    .title {
-      flex: 1;
-    }
-
-    .title h1 {
-      font-family: 'Quicksand', sans-serif;
-      font-weight: 600;
-      font-size: 1.8rem;
-      margin-bottom: 5px;
-    }
-
-    .title p {
-      font-size: 0.9rem;
-      opacity: 0.9;
-      font-weight: 300;
-    }
-
-    .status {
-      display: flex;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-    }
-
-    .status-indicator {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #51cf66;
-      margin-right: 8px;
-      animation: pulse 1.5s infinite;
-    }
-
-    .chat-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    #chatbox {
-      flex: 1;
-      padding: 25px;
-      overflow-y: auto;
-      background: #f8f9fa;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .message {
-      max-width: 80%;
-      padding: 15px 20px;
-      border-radius: 18px;
-      line-height: 1.5;
-      position: relative;
-      animation: fadeIn 0.3s ease-out;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-
-    .user-message {
-      background: linear-gradient(135deg, #5c7cfa 0%, #3b5bdb 100%);
-      color: white;
-      align-self: flex-end;
-      border-bottom-right-radius: 5px;
-    }
-
-    .bot-message {
-      background: white;
-      color: #333;
-      align-self: flex-start;
-      border-bottom-left-radius: 5px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    .message-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    .user-message .message-header {
-      color: rgba(255, 255, 255, 0.9);
-    }
-
-    .bot-message .message-header {
-      color: #5c7cfa;
-    }
-
-    .message-header i {
-      margin-right: 8px;
-      font-size: 1.1rem;
-    }
-
-    .typing-indicator {
-      background: white;
-      padding: 15px 20px;
-      border-radius: 18px;
-      align-self: flex-start;
-      display: none;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    .typing-indicator span {
-      height: 10px;
-      width: 10px;
-      float: left;
-      margin: 0 2px;
-      background-color: #adb5bd;
-      display: block;
-      border-radius: 50%;
-      opacity: 0.4;
-    }
-
-    .typing-indicator span:nth-of-type(1) {
-      animation: typing 1s infinite;
-    }
-
-    .typing-indicator span:nth-of-type(2) {
-      animation: typing 1s infinite 0.2s;
-    }
-
-    .typing-indicator span:nth-of-type(3) {
-      animation: typing 1s infinite 0.4s;
-    }
-
-    .input-container {
-      padding: 20px;
-      background: white;
-      border-top: 1px solid #e9ecef;
-      display: flex;
-      gap: 15px;
-    }
-
-    #userInput {
-      flex: 1;
-      padding: 16px 20px;
-      border: 2px solid #e9ecef;
-      border-radius: 15px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 1rem;
-      transition: all 0.3s;
-      background: #f8f9fa;
-    }
-
-    #userInput:focus {
-      outline: none;
-      border-color: #5c7cfa;
-      background: white;
-      box-shadow: 0 0 0 3px rgba(92, 124, 250, 0.2);
-    }
-
-    #userInput::placeholder {
-      color: #adb5bd;
-    }
-
-    #sendBtn {
-      background: linear-gradient(135deg, #5c7cfa 0%, #3b5bdb 100%);
-      color: white;
-      border: none;
-      border-radius: 15px;
-      padding: 0 25px;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(92, 124, 250, 0.3);
-    }
-
-    #sendBtn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(92, 124, 250, 0.4);
-    }
-
-    #sendBtn:active {
-      transform: translateY(0);
-    }
-
-    .welcome-message {
-      text-align: center;
-      padding: 30px 20px;
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      border-radius: 15px;
-      margin: 20px;
-    }
-
-    .welcome-message h2 {
-      color: #3b5bdb;
-      margin-bottom: 15px;
-      font-family: 'Quicksand', sans-serif;
-    }
-
-    .welcome-message p {
-      color: #495057;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .suggestions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin-top: 15px;
-    }
-
-    .suggestion {
-      background: rgba(92, 124, 250, 0.1);
-      color: #3b5bdb;
-      border: 1px solid rgba(92, 124, 250, 0.3);
-      border-radius: 50px;
-      padding: 8px 18px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .suggestion:hover {
-      background: rgba(92, 124, 250, 0.2);
-      transform: translateY(-2px);
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes pulse {
-      0% {
-        opacity: 0.6;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0.6;
-      }
-    }
-
-    @keyframes typing {
-      0% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-5px);
-      }
-      100% {
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        height: 95vh;
-        border-radius: 15px;
-      }
-      
-      .header {
-        padding: 15px;
-      }
-      
-      .title h1 {
-        font-size: 1.4rem;
-      }
-      
-      .message {
-        max-width: 90%;
-      }
-      
-      .input-container {
-        padding: 15px;
-      }
-      
-      #userInput {
-        padding: 14px;
-      }
-    }
-  </style>
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+        }
+        
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            transition: var(--transition);
+            padding: 8px 0;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover:after,
+        nav ul li a.active:after {
+            width: 100%;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        /* Hero Section with Photo Background */
+        .hero {
+            position: relative;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            z-index: 1;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.571), rgba(0, 0, 0, 0.5));
+            z-index: 2;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 1200px;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            margin: 0 auto;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.95;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 8px 20px rgba(247, 37, 133, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(247, 37, 133, 0.4);
+            background: #e6146e;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            color: var(--secondary);
+        }
+        
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+        
+        .section-header p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+        }
+        
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-icon {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: var(--primary);
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(76, 201, 240, 0.05));
+        }
+        
+        .card-content {
+            padding: 2rem;
+        }
+        
+        .card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            color: var(--secondary);
+        }
+        
+        .card ul {
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .card li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+        
+        .card li:before {
+            content: "✓";
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Highlight Section */
+        .highlight {
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(247, 37, 133, 0.05));
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin: 5rem 0;
+            position: relative;
+            overflow: hidden;
+            border: 2px dashed var(--primary);
+        }
+        
+        .highlight-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .highlight h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .highlight p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #555;
+        }
+        
+        /* Testimonials */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .testimonial {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .testimonial:before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(67, 97, 238, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial p {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #555;
+            position: relative;
+            z-index: 1;
+            padding: 1.5rem 0;
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1.5rem;
+            border: 3px solid var(--teal);
+        }
+        
+        .author-info h4 {
+            margin: 0;
+            color: var(--dark);
+        }
+        
+        .author-info p {
+            margin: 0;
+            color: #777;
+            font-style: normal;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 5rem 0 2rem;
+            margin-top: 5rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-col h3 {
+            color: var(--teal);
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .footer-col p {
+            color: #bbb;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-col ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--teal);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.3rem;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero {
+                height: 70vh;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.3rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .highlight {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div class="logo"><a href="insieme.html" style="color: inherit; text-decoration: none;">
-        <i class="fas fa-hands-helping"></i></a>
-      </div>
-      <div class="title">
-        <h1>Insieme AI Chat Assistant</h1>
-        <p>Your compassionate companion for emotional wellness</p>
-      </div>
-      <div class="status">
-        <div class="status-indicator"></div>
-        <span>Online</span>
-      </div>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <div class="logo-text">Insieme</div>
+                <button onclick="startReading()"> Read Page</button>
+                <button onclick="stopReading()"> Stop</button>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#awareness">Awareness</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#legal">Legal Rights</a></li>
+                    <li><a href="service/service_request.php">Services</a></li>
+                    <li><a href="assdonation/index.php">Donate</a></li>
+                    <li><a href="chat/chat.html">CommunityChat</a></li>
+                    <li><a href="map.html">Map</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section with Photo Background -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Empowering Abilities, Supporting Mental Health</h1>
+            <p>Creating an inclusive world through awareness, education, and legal support for people with disabilities and mental health conditions</p>
+            <div class="hero-buttons">
+                <a href="index.html" class="btn btn-primary">
+                    <i class="fas fa-hands"></i> AI Support
+                </a>
+                
+                <a href="fundraiser/index.html" class="btn btn-secondary">
+                    <i class="fas fa-heart"></i> Make a Donation
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Awareness Section -->
+        <section id="awareness" class="section">
+            <div class="section-header">
+                <h2>Awareness & Inclusion</h2>
+                <p>Breaking down barriers and building understanding for people with disabilities and mental health conditions</p>
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-wheelchair"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Disability & Disorder Employment Quota</h3>
+                        <ul>
+                            <li>4-7% reservation in government jobs</li>
+                            <li>3-5% quota in private sector employment</li>
+                            <li>Special recruitment drives for PwD</li>
+                            <li>Reserved seats in educational institutions</li>
+                        </ul>
+                        <a href="https://education.vikaspedia.in/viewcontent/education/career-guidance/career-options/employment-vocational-training/employment-reservations-and-concessions-for-specially-abled?lgn=en" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Mental Health Awareness</h3>
+                        <ul>
+                            <li>Breaking stigmas around mental illness</li>
+                            <li>Community support programs</li>
+                            <li>Workplace mental health initiatives</li>
+                            <li>Educational workshops in schools</li>
+                        </ul>
+                        <a href="service/service_request.php" class="btn btn-primary">Get Involved</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-universal-access"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Accessibility Initiatives</h3>
+                        <ul>
+                            <li>Public space accessibility audits</li>
+                            <li>Assistive technology resources</li>
+                            <li>Transportation accessibility</li>
+                            <li>Digital accessibility standards</li>
+                        </ul> <br>
+                        <a href="https://depwd.gov.in/en/accessible-india-campaign/" class="btn btn-primary">View Resources</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education & Financial Support -->
+        <section id="education" class="section">
+            <div class="section-header">
+                <br> <br>
+                <h2>Education & Financial Support</h2>
+                <p>Resources and financial assistance programs for people with disabilities</p>
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Bank Loans for Disabled Persons</h3>
+                        <ul>
+                            <li>Low-interest business startup loans</li>
+                            <li>Special education loan schemes</li>
+                            <li>Collateral-free loans up to ₹10 lakhs</li>
+                            <li>Extended repayment periods</li>
+                            <li>Subsidized interest rates</li>
+                        </ul> <br>
+                        <a href="https://depwd.gov.in/en/national-handicapped-finance-and-development-corporation/" class="btn btn-primary">Apply Now</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Government Stipends & Pensions</h3>
+                        <ul>
+                            <li>Disability pension (₹500-3000/month)</li>
+                            <li>Educational scholarships</li>
+                            <li>Healthcare reimbursement</li>
+                            <li>Free assistive devices</li>
+                            <li>Transportation concessions</li>
+                        </ul><br> <br> <br>
+                        <a href="https://www.scd.tn.gov.in/Mintantance_allowance.php" class="btn btn-primary">Check Eligibility</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Special Education Programs</h3>
+                        <ul>
+                            <li>Reserved university seats</li>
+                            <li>Special examination provisions</li>
+                            <li>Accessible learning materials</li>
+                            <li>Vocational training programs</li>
+                            <li>Assistive technology in classrooms</li>
+                        </ul>
+                        <a href="https://tnou.ac.in/wp-content/uploads/2021/06/SED-13-Inclusive-Education-English.pdf" class="btn btn-primary">Find Programs</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Legal Rights -->
+        <section id="legal" class="section">
+            <div class="section-header"><br> <br>
+                <h2>Legal Rights & Policies</h2>
+                <p>Know your rights under disability protection laws</p>
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-scale-balanced"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Rights of Persons with Disabilities Act</h3>
+                        <ul>
+                            <li>5% reservation in government jobs</li>
+                            <li>Accessibility requirements for public spaces</li>
+                            <li>Right to inclusive education</li>
+                            <li>Protection from discrimination</li>
+                            <li>Legal recourse for rights violations</li>
+                        </ul>
+                        <a href="https://nhrc.nic.in/sites/default/files/DisabilityRights.pdf" class="btn btn-primary">Read Full Act</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>UN Convention on Disability Rights</h3>
+                        <ul>
+                            <li>Equal opportunities in employment</li>
+                            <li>Right to live independently</li>
+                            <li>Access to justice</li>
+                            <li>Freedom from exploitation</li>
+                            <li>Participation in political life</li>
+                        </ul>
+                        <a href="https://nda.ie/disability-policy/uncrpd" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <div class="highlight-content">
+                    <h3>Need Legal Assistance?</h3>
+                    <p>Our team of disability rights lawyers provides free consultation to help you understand and exercise your rights</p>
+                    <a href="service/service_request.php" class="btn btn-primary">Schedule Free Consultation</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Success Stories</h2>
+                <p>Inspiring journeys of people we've supported</p>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <p>"With Insieme's guidance, I secured a low-interest bank loan and started my own café. The disability employment quota helped me hire two more people with disabilities. We're now a fully accessible space!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Priya K.">
+                        <div class="author-info">
+                            <h4>Priya K.</h4>
+                            <p>Wheelchair user & Entrepreneur</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p>"The government stipend helped me complete my education, and Insieme's legal team fought for my right to reasonable accommodations at work. Today I'm a software engineer at a top tech company."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul S.">
+                        <div class="author-info">
+                            <h4>Rahul S.</h4>
+                            <p>Visually impaired developer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p>"After my diagnosis, Insieme connected me with mental health resources and legal support. They helped me understand my workplace rights and secure the accommodations I needed to thrive professionally."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ananya R.">
+                        <div class="author-info">
+                            <h4>Ananya R.</h4>
+                            <p>Mental health advocate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-    
-    <div class="chat-container">
-      <div id="chatbox">
-        <div class="welcome-message">
-          <h2>Welcome to Insieme 🤗</h2>
-          <p>I'm here to support your emotional wellness journey. Whether you need someone to talk to, coping strategies, or just a kind word, I'm here for you.</p>
-          <p>How can I support you today?</p>
-          
-          <div class="suggestions">
-            <div class="suggestion">I'm feeling anxious</div>
-            <div class="suggestion">How can I manage stress?</div>
-            <div class="suggestion">I need motivation</div>
-            <div class="suggestion">Tell me something positive</div>
-          </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Insieme</h3>
+                <p>Empowering people with disabilities through awareness, education, and legal support.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#awareness"><i class="fas fa-arrow-right"></i> Awareness</a></li>
+                    <li><a href="#education"><i class="fas fa-arrow-right"></i> Financial Support</a></li>
+                    <li><a href="#legal"><i class="fas fa-arrow-right"></i> Legal Rights</a></li>
+                    <li><a href="#"><i class="fas fa-arrow-right"></i> Success Stories</a></li>
+                    <li><a href="#"><i class="fas fa-arrow-right"></i> Volunteer</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-phone"></i> Helpline: 78854645678 (24/7)</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="#"><i class="fas fa-tools"></i> Accessibility Tools</a></li>
+                    <li><a href="#"><i class="fas fa-book"></i> Resources</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Subscribe for updates on disability rights and support programs.</p>
+                <form>
+                    <input type="email" placeholder="Your email" style="padding: 12px; width: 100%; border-radius: 50px; border: none; margin-bottom: 15px; font-size: 1rem;">
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
         </div>
         
-        <!-- Messages will appear here dynamically -->
-      </div>
-      
-      <div class="typing-indicator" id="typingIndicator">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-    
-    <div class="input-container">
-      <input type="text" id="userInput" placeholder="Share what's on your mind..." />
-       <button id="micBtn" title="Speak"><i class="fas fa-microphone"></i></button>
-      <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
-    </div>
-  </div>
+        <div class="copyright">
+            <p>&copy; 2023 Insieme. All rights reserved. | <a href="#" style="color: var(--teal);">Privacy Policy</a> | <a href="#" style="color: var(--teal);">Accessibility Statement</a></p>
+        </div>
+    </footer>
 
-  <script>
-    const API_URL = "https://openrouter.ai/api/v1/chat/completions";
-    const API_KEY = "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"; // Replace with your key
-    
-    const chatbox = document.getElementById("chatbox");
-    const sendBtn = document.getElementById("sendBtn");
-    const userInput = document.getElementById("userInput");
-    const typingIndicator = document.getElementById("typingIndicator");
-    const suggestions = document.querySelectorAll(".suggestion");
-    
-    const MODEL_NAME = "gryphe/mythomax-l2-13b";
-    
-    // Add event listeners
-    sendBtn.addEventListener("click", sendMessage);
-    userInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendMessage();
-    });
-    
-    // Add click events to suggestions
-    suggestions.forEach(suggestion => {
-      suggestion.addEventListener("click", () => {
-        userInput.value = suggestion.textContent;
-        sendMessage();
-      });
-    });
-    
-    // Predefined welcome message from the assistant
-    setTimeout(() => {
-      appendMessage("Insieme", "Hello! I'm Insieme, your emotional wellness assistant. I'm here to listen without judgment and offer support whenever you need it. How are you feeling today?", "bot");
-      speakMessage(reply);
-
-    }, 1000);
-    
-    async function sendMessage() {
-      const userText = userInput.value.trim();
-      if (!userText) return;
-      
-      appendMessage("You", userText, "user");
-      userInput.value = "";
-      
-      // Show typing indicator
-      typingIndicator.style.display = "flex";
-      chatbox.scrollTop = chatbox.scrollHeight;
-      
-      try {
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${API_KEY}`
-          },
-          body: JSON.stringify({
-            model: MODEL_NAME,
-            messages: [
-            {
-  role: "system",
-  content: `You are Insieme, a deeply kind, emotionally supportive AI assistant designed to help users with disabilities and mental wellness. You always speak with warmth, comfort, and gentle motivation — like a non-judgmental, caring friend.
-
-Your messages must always:
-- ✅ Start with soothing or motivating words (e.g., "You're doing your best, and that matters." or "I'm here for you, no matter what.")
-- ✅ Speak with love, empathy, and compassion
-- ✅ Only ask a gentle question if it helps the user feel better or more supported — and only **after** giving comfort
-- ❌ Never sound robotic or formal
-- ❌ Never ask questions without first offering kind support
-
-Example style:
-"You've been carrying a lot, and that takes strength. I'm really proud of you for holding on. If you'd like, I can share something comforting or uplifting with you."`
-},
-              { role: "user", content: userText }
-            ]
-          })
+    <script>
+        // Simple animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const cards = document.querySelectorAll('.card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
         });
-        
-        const data = await res.json();
-        console.log("OpenRouter response:", data);
-        
-        // Hide typing indicator
-        typingIndicator.style.display = "none";
-        
-        const reply = data.choices?.[0]?.message?.content ||
-                      "I'm sorry, I didn't quite understand that. Could you please rephrase?";
-        appendMessage("Insieme", reply, "bot");
-        speakMessage(reply);
-
-        
-      } catch (error) {
-        console.error("Error contacting API:", error);
-        typingIndicator.style.display = "none";
-        appendMessage("Insieme", "I'm having trouble connecting right now. Please try again in a moment.", "bot");
-      }
-    }
-    
-    function appendMessage(sender, message, type) {
-      const messageDiv = document.createElement("div");
-      messageDiv.classList.add("message");
-      messageDiv.classList.add(type === "user" ? "user-message" : "bot-message");
-      
-      const icon = type === "user" ? "fas fa-user" : "fas fa-robot";
-      
-      messageDiv.innerHTML = `
-        <div class="message-header">
-          <i class="${icon}"></i>
-          <span>${sender}</span>
-        </div>
-        <div class="message-content">${message}</div>
-      `;
-      
-      chatbox.appendChild(messageDiv);
-      chatbox.scrollTop = chatbox.scrollHeight;
-    }
-    function speakMessage(message) {
-    if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(message);
-        utterance.lang = 'en-IN'; // Indian English
-        utterance.rate = 1;       // Normal speed
-        utterance.pitch = 1;      // Normal pitch
-        window.speechSynthesis.speak(utterance);
-    } else {
-        console.log("Speech synthesis not supported in this browser.");
-    }
-}
-
-  </script>
+    </script>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const micBtn = document.getElementById("micBtn");
-  const userInput = document.getElementById("userInput");
+let isReading = false;  
+let utterance;
 
-  // Check browser support
-  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!window.SpeechRecognition) {
-    alert("Speech recognition is not supported in this browser. Please try Chrome.");
-    return;
-  }
-
-  const recognition = new SpeechRecognition();
-  recognition.continuous = false;
-  recognition.interimResults = false;
-  recognition.lang = "en-IN";
-
-  let listening = false;
-
-  function startMic() {
-    if (!listening) {
-      recognition.start();
-      micBtn.innerHTML = '<i class="fas fa-microphone-alt"></i> Listening...';
-      listening = true;
+document.addEventListener("keydown", function(event) {
+    if (event.key.toLowerCase() === "f") { // toggle on W
+        if (!isReading) {
+            startReading();
+        } else {
+            stopReading();
+        }
     }
-  }
-
-  function stopMic() {
-    if (listening) {
-      recognition.stop();
-      micBtn.innerHTML = '<i class="fas fa-microphone"></i>';
-      listening = false;
-    }
-  }
-
-  // Click mic button
-  micBtn.addEventListener("click", function(e) {
-    e.preventDefault();
-    if (listening) stopMic();
-    else startMic();
-  });
-
-  // Press Shift key
-  document.addEventListener("keydown", function(e) {
-    if (e.key === "Shift") {
-      e.preventDefault();
-      if (listening) stopMic();
-      else startMic();
-    }
-  });
-
-  recognition.onresult = function(event) {
-    const transcript = event.results[0][0].transcript;
-    userInput.value = transcript;
-    stopMic(); // automatically stop after result
-  };
-
-  recognition.onerror = function(event) {
-    console.error("Speech recognition error:", event.error);
-    stopMic();
-  };
-
-  recognition.onend = function() {
-    stopMic(); // reset in case recognition ends naturally
-  };
 });
 
+function startReading() {
+    if (isReading) return; // avoid double start
+    let text = document.body.innerText; 
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US"; 
+    speechSynthesis.speak(utterance);
+    isReading = true;
+}
+
+function stopReading() {
+    speechSynthesis.cancel(); 
+    isReading = false;
+}
 </script>
 
 </body>

@@ -471,7 +471,7 @@ $result = $conn->query($sql);
     <!-- 🚀 Header Section -->
     <header>
         <div class="header-container">
-            <a href="../insieme.html" class="logo">
+            <a href="../index.html" class="logo">
                 <div class="logo-icon">
                     <i class="fas fa-hands-helping"></i>
                 </div>

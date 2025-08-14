@@ -322,7 +322,7 @@ $mysqli->close();
       </div>
       
       <div class="actions">
-        <a href="index.html" class="btn btn-primary">
+        <a href="../index.html" class="btn btn-primary">
           Go Back Home
         </a>
         <a href="#" class="btn btn-outline">

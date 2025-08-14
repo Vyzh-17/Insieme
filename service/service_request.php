@@ -522,7 +522,7 @@ $conn->close();
     <div class="container">
         <header>
             <div class="logo">
-                <div class="logo-icon"><a href="../insieme.html ">
+                <div class="logo-icon"><a href="../index.html ">
                     <i class="fas fa-hands-helping"></i></a>
                 </div>
                 <h1>Insieme Support</h1>
