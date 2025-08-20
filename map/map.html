@@ -194,7 +194,29 @@
   <!-- Hidden text info for screen readers / Braille -->
   <div id="markerInfoContainer" class="sr-only" aria-live="polite"></div>
 
- 
+  <!-- Form to add new places -->
+  <h2>Add a new accessible location</h2>
+  <form id="addPlaceForm">
+    <div class="form-group">
+      <label for="placeName">Location Name:</label>
+      <input type="text" id="placeName" required aria-required="true">
+    </div>
+    <div class="form-group">
+      <label for="placeType">Accessibility Type:</label>
+      <select id="placeType" aria-label="Select accessibility type">
+        <option value="Wheelchair">Wheelchair Accessible</option>
+        <option value="Braille">Braille Accessible</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="placeDesc">Description:</label>
+      <input type="text" id="placeDesc" required aria-required="true" aria-label="Description of accessibility features">
+    </div>
+    <button type="submit">
+      <i class="fas fa-plus" aria-hidden="true"></i> Add Location
+    </button>
+  </form>
+  <p>Or <strong>click on the map</strong> to add a marker at that location.</p>
 </div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
