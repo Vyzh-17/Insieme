@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Listings - Insieme</title>
+    <title>Insieme - Together We Can</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6C63FF;
-            --primary-gradient: linear-gradient(135deg, #6C63FF 0%, #4A40E5 100%);
+             --primary: #6394ff;
+            --primary-gradient: linear-gradient(135deg, #6382ff 0%, #4071e5 100%);
             --secondary: #FF6B6B;
             --accent: #36D1DC;
             --accent-gradient: linear-gradient(135deg, #36D1DC 0%, #5B86E5 100%);
@@ -114,7 +114,7 @@
 
         .logo {
             font-family: 'Montserrat', sans-serif;
-            font-size: 36px;
+            font-size: 48px;
             font-weight: 900;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
@@ -127,19 +127,19 @@
 
         .logo i {
             margin-right: 15px;
-            font-size: 40px;
+            font-size: 52px;
         }
 
-        .subtitle {
+        .tagline {
             color: var(--dark);
-            font-size: 18px;
+            font-size: 20px;
             opacity: 0.8;
             margin-bottom: 30px;
         }
 
         .page-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 800;
             margin-bottom: 30px;
             color: var(--dark);
@@ -159,26 +159,25 @@
         .page-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+           
+            
             width: 80px;
             height: 5px;
-            background: var(--primary-gradient);
+            
             border-radius: 5px;
         }
 
-        .job-listings {
+        .options-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
             margin-bottom: 40px;
         }
 
-        .job-card {
+        .option-card {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 30px;
+            padding: 40px;
             box-shadow: var(--shadow);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -186,14 +185,20 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
         }
 
-        .job-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(31, 38, 135, 0.2);
+        .option-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(31, 38, 135, 0.2);
         }
 
-        .job-card::before {
+        .option-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -203,104 +208,59 @@
             background: var(--primary-gradient);
         }
 
-        .job-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-
-        .job-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-
-        .company {
-            color: var(--primary);
-            font-weight: 500;
-            font-size: 18px;
-        }
-
-        .job-status {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            background: rgba(76, 217, 100, 0.2);
-            color: var(--success);
-            border: 1px solid rgba(76, 217, 100, 0.3);
-        }
-
-        .job-details {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .detail-item {
+        .option-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            background: var(--light);
-            padding: 12px 15px;
-            border-radius: 10px;
-        }
-
-        .detail-item i {
-            color: var(--primary);
-            margin-right: 12px;
-            font-size: 16px;
-            width: 20px;
-        }
-
-        .job-description {
+            justify-content: center;
             margin-bottom: 25px;
+            font-size: 40px;
+            color: white;
+        }
+
+        .fundraiser-icon {
+            background: var(--primary-gradient);
+        }
+
+        .donate-icon {
+            background: var(--accent-gradient);
+        }
+
+        .option-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .option-description {
             color: #555;
+            margin-bottom: 30px;
             line-height: 1.7;
-            background: var(--light);
-            padding: 20px;
-            border-radius: 10px;
-            max-height: 150px;
-            overflow-y: auto;
         }
 
-        .job-description::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .job-description::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        .job-description::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-
-        .apply-btn {
+        .btn-option {
             background: var(--primary-gradient);
             color: white;
             border: none;
             border-radius: 50px;
-            padding: 14px 25px;
-            font-size: 16px;
+            padding: 16px 35px;
+            font-size: 18px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            display: block;
-            width: 100%;
-            text-align: center;
+            display: inline-flex;
+            align-items: center;
             text-decoration: none;
             box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
             position: relative;
             overflow: hidden;
         }
 
-        .apply-btn::before {
+        .btn-option::before {
             content: '';
             position: absolute;
             top: 0;
@@ -311,53 +271,73 @@
             transition: 0.5s;
         }
 
-        .apply-btn:hover::before {
+        .btn-option:hover::before {
             left: 100%;
         }
 
-        .apply-btn:hover {
+        .btn-option:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
         }
 
-        .apply-btn:active {
+        .btn-option:active {
             transform: translateY(0);
         }
 
-        .apply-btn i {
-            margin-right: 8px;
+        .btn-option i {
+            margin-right: 10px;
         }
 
-        .no-jobs {
-            text-align: center;
-            padding: 60px 40px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border: 1px solid var(--glass-border);
-            grid-column: 1 / -1;
-        }
-
-        .no-jobs i {
-            font-size: 80px;
-            margin-bottom: 25px;
+        .btn-donate {
             background: var(--accent-gradient);
+            box-shadow: 0 5px 15px rgba(54, 209, 220, 0.3);
+        }
+
+        .btn-donate:hover {
+            box-shadow: 0 8px 20px rgba(54, 209, 220, 0.4);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .feature {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(31, 38, 135, 0.15);
+        }
+
+        .feature i {
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .no-jobs h3 {
-            font-size: 28px;
-            margin-bottom: 15px;
+        .feature h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
             color: var(--dark);
         }
 
-        .no-jobs p {
+        .feature p {
             color: #666;
-            margin-bottom: 30px;
-            font-size: 18px;
+            font-size: 15px;
         }
 
         .footer {
@@ -403,16 +383,16 @@
         }
 
         @media (max-width: 768px) {
-            .job-listings {
+            .options-container {
                 grid-template-columns: 1fr;
             }
             
             .logo {
-                font-size: 28px;
+                font-size: 36px;
             }
             
             .page-title {
-                font-size: 26px;
+                font-size: 28px;
             }
             
             .nav-links {
@@ -426,6 +406,11 @@
                 max-width: 250px;
                 justify-content: center;
             }
+            
+            .option-card {
+                min-height: 350px;
+                padding: 30px;
+            }
         }
     </style>
 </head>
@@ -438,78 +423,82 @@
 
     <div class="container">
         <div class="header">
-            <a href="../index.html" class="logo">
+            <a href="index.html" class="logo">
                 <i class="fas fa-hands-helping"></i>
                 <span>Insieme</span>
             </a>
-            <p class="subtitle">Find your dream job with us</p>
+            <p class="tagline">Together We Can Make a Difference</p>
             
             
             
             <h1 class="page-title">
-                <i class="fas fa-briefcase"></i> Available Jobs
+                <i class="fas fa-heart"></i> How Would You Like to Help?
             </h1>
         </div>
 
-        <div class="job-listings">
-            <?php
-            include '../assets/db.php';
-
-            $result = mysqli_query($conn, "SELECT * FROM job_posts WHERE status='approved' ORDER BY posted_at DESC");
+        <div class="options-container">
+            <div class="option-card">
+                <div class="option-icon fundraiser-icon">
+                    <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <h2 class="option-title">Start a Fundraiser</h2>
+                <p class="option-description">
+                    Create a campaign to raise funds for your cause, project, or community initiative. 
+                    Share your story, set goals, and receive support from people who believe in your mission.
+                </p>
+                <a href="fundraiser/index.html" class="btn-option">
+                    <i class="fas fa-rocket"></i> Start Fundraising
+                </a>
+            </div>
             
-            if (mysqli_num_rows($result) > 0) {
-                while ($job = mysqli_fetch_assoc($result)) {
-                    echo '
-                    <div class="job-card">
-                        <div class="job-header">
-                            <div>
-                                <h2 class="job-title">' . htmlspecialchars($job['title']) . '</h2>
-                                <p class="company">' . htmlspecialchars($job['company_name']) . '</p>
-                            </div>
-                            <span class="job-status">Approved</span>
-                        </div>
-                        
-                        <div class="job-details">
-                            <div class="detail-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>' . htmlspecialchars($job['location']) . '</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-money-bill-wave"></i>
-                                <span>' . htmlspecialchars($job['salary']) . '</span>
-                            </div>
-                        </div>
-                        
-                        <div class="job-description">
-                            <p>' . nl2br(htmlspecialchars($job['description'])) . '</p>
-                            
-                        </div>
-                        
-                        <a href="apply.php?job_id=' . $job['id'] . '" class="apply-btn">
-                            <i class="fas fa-paper-plane"></i> Apply Now
-                        </a>
-                    </div>';
-                }
-            } else {
-                echo '
-                <div class="no-jobs">
-                    <i class="fas fa-search"></i>
-                    <h3>No Jobs Available</h3>
-                    <p>There are currently no job openings. Please check back later.</p>
-                </div>';
-            }
-            ?>
+            <div class="option-card">
+                <div class="option-icon donate-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h2 class="option-title">Assistive Donate</h2>
+                <p class="option-description">
+                    Support existing causes and make a direct impact with your donation. 
+                    Choose from verified campaigns and provide assistance to those in need.
+                </p>
+                <a href="assdonation/index.php" class="btn-option btn-donate">
+                    <i class="fas fa-gift"></i> Make a Donation
+                </a>
+            </div>
+        </div>
+        
+        <h2 class="page-title">
+            <i class="fas fa-star"></i> Why Choose Insieme?
+        </h2>
+        
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Secure & Transparent</h3>
+                <p>All transactions are encrypted and we ensure complete transparency in fund allocation.</p>
+            </div>
+            
+            <div class="feature">
+                <i class="fas fa-globe"></i>
+                <h3>Global Reach</h3>
+                <p>Connect with supporters from around the world who care about your cause.</p>
+            </div>
+            
+            <div class="feature">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h3>Make an Impact</h3>
+                <p>See the real difference your contributions make through regular updates and stories.</p>
+            </div>
         </div>
 
         <div class="footer">
-            <p>© <?php echo date('Y'); ?> Insieme Job Portal. All rights reserved.</p>
+            <p>© <?php echo date('Y'); ?> Insieme Community Platform. All rights reserved.</p>
         </div>
     </div>
 
     <script>
         // Simple animation for cards when they come into view
         document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.job-card');
+            const cards = document.querySelectorAll('.option-card, .feature');
             cards.forEach((card, index) => {
                 card.style.animationDelay = `${index * 0.1}s`;
                 card.classList.add('fade-in');

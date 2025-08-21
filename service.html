@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Listings - Insieme</title>
+    <title>Insieme - Community Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6C63FF;
-            --primary-gradient: linear-gradient(135deg, #6C63FF 0%, #4A40E5 100%);
+            --primary: #af0000;
+            --primary-gradient: linear-gradient(135deg, #840000 0%, #d90000 100%);
             --secondary: #FF6B6B;
             --accent: #36D1DC;
-            --accent-gradient: linear-gradient(135deg, #36D1DC 0%, #5B86E5 100%);
+            --accent-2: #4CD964;
+            --accent-3: #FFCC00;
+            --accent-4: #FF9A3D;
             --dark: #2D2B55;
             --light: #F8F9FF;
-            --success: #4CD964;
             --card-bg: rgba(255, 255, 255, 0.92);
             --glass-bg: rgba(255, 255, 255, 0.25);
             --glass-border: rgba(255, 255, 255, 0.4);
@@ -114,7 +115,7 @@
 
         .logo {
             font-family: 'Montserrat', sans-serif;
-            font-size: 36px;
+            font-size: 48px;
             font-weight: 900;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
@@ -127,19 +128,19 @@
 
         .logo i {
             margin-right: 15px;
-            font-size: 40px;
+            font-size: 52px;
         }
 
-        .subtitle {
+        .tagline {
             color: var(--dark);
-            font-size: 18px;
+            font-size: 20px;
             opacity: 0.8;
             margin-bottom: 30px;
         }
 
         .page-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 800;
             margin-bottom: 30px;
             color: var(--dark);
@@ -168,14 +169,14 @@
             border-radius: 5px;
         }
 
-        .job-listings {
+        .options-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
             margin-bottom: 40px;
         }
 
-        .job-card {
+        .option-card {
             background: var(--card-bg);
             border-radius: 20px;
             padding: 30px;
@@ -186,121 +187,105 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
         }
 
-        .job-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(31, 38, 135, 0.2);
+        .option-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(31, 38, 135, 0.2);
         }
 
-        .job-card::before {
+        .option-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 5px;
+        }
+
+        .services-card::before {
             background: var(--primary-gradient);
         }
 
-        .job-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
+        .job-card::before {
+            background: linear-gradient(135deg, var(--accent-2) 0%, #3AB64A 100%);
         }
 
-        .job-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 5px;
+        .chat-card::before {
+            background: linear-gradient(135deg, var(--accent-3) 0%, #FFA500 100%);
         }
 
-        .company {
-            color: var(--primary);
-            font-weight: 500;
-            font-size: 18px;
+        .map-card::before {
+            background: linear-gradient(135deg, var(--accent-4) 0%, #FF7B00 100%);
         }
 
-        .job-status {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            background: rgba(76, 217, 100, 0.2);
-            color: var(--success);
-            border: 1px solid rgba(76, 217, 100, 0.3);
-        }
-
-        .job-details {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .detail-item {
+        .option-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            background: var(--light);
-            padding: 12px 15px;
-            border-radius: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 32px;
+            color: white;
         }
 
-        .detail-item i {
-            color: var(--primary);
-            margin-right: 12px;
-            font-size: 16px;
-            width: 20px;
-        }
-
-        .job-description {
-            margin-bottom: 25px;
-            color: #555;
-            line-height: 1.7;
-            background: var(--light);
-            padding: 20px;
-            border-radius: 10px;
-            max-height: 150px;
-            overflow-y: auto;
-        }
-
-        .job-description::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .job-description::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        .job-description::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-
-        .apply-btn {
+        .services-icon {
             background: var(--primary-gradient);
+        }
+
+        .job-icon {
+            background: linear-gradient(135deg, var(--accent-2) 0%, #3AB64A 100%);
+        }
+
+        .chat-icon {
+            background: linear-gradient(135deg, var(--accent-3) 0%, #FFA500 100%);
+        }
+
+        .map-icon {
+            background: linear-gradient(135deg, var(--accent-4) 0%, #FF7B00 100%);
+        }
+
+        .option-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .option-description {
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .btn-option {
             color: white;
             border: none;
             border-radius: 50px;
-            padding: 14px 25px;
+            padding: 14px 30px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            display: block;
-            width: 100%;
-            text-align: center;
+            display: inline-flex;
+            align-items: center;
             text-decoration: none;
-            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
         }
 
-        .apply-btn::before {
+        .btn-option::before {
             content: '';
             position: absolute;
             top: 0;
@@ -311,53 +296,80 @@
             transition: 0.5s;
         }
 
-        .apply-btn:hover::before {
+        .btn-option:hover::before {
             left: 100%;
         }
 
-        .apply-btn:hover {
+        .btn-option:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
         }
 
-        .apply-btn:active {
+        .btn-option:active {
             transform: translateY(0);
         }
 
-        .apply-btn i {
+        .btn-option i {
             margin-right: 8px;
         }
 
-        .no-jobs {
-            text-align: center;
-            padding: 60px 40px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border: 1px solid var(--glass-border);
-            grid-column: 1 / -1;
+        .btn-services {
+            background: var(--primary-gradient);
         }
 
-        .no-jobs i {
-            font-size: 80px;
-            margin-bottom: 25px;
-            background: var(--accent-gradient);
+        .btn-jobs {
+            background: linear-gradient(135deg, var(--accent-2) 0%, #3AB64A 100%);
+        }
+
+        .btn-chat {
+            background: linear-gradient(135deg, var(--accent-3) 0%, #FFA500 100%);
+        }
+
+        .btn-map {
+            background: linear-gradient(135deg, var(--accent-4) 0%, #FF7B00 100%);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .feature {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(31, 38, 135, 0.15);
+        }
+
+        .feature i {
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .no-jobs h3 {
-            font-size: 28px;
-            margin-bottom: 15px;
+        .feature h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
             color: var(--dark);
         }
 
-        .no-jobs p {
+        .feature p {
             color: #666;
-            margin-bottom: 30px;
-            font-size: 18px;
+            font-size: 15px;
         }
 
         .footer {
@@ -371,9 +383,10 @@
         .nav-links {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
             margin-top: 20px;
             margin-bottom: 40px;
+            flex-wrap: wrap;
         }
 
         .nav-link {
@@ -403,16 +416,16 @@
         }
 
         @media (max-width: 768px) {
-            .job-listings {
+            .options-container {
                 grid-template-columns: 1fr;
             }
             
             .logo {
-                font-size: 28px;
+                font-size: 36px;
             }
             
             .page-title {
-                font-size: 26px;
+                font-size: 28px;
             }
             
             .nav-links {
@@ -426,6 +439,11 @@
                 max-width: 250px;
                 justify-content: center;
             }
+            
+            .option-card {
+                min-height: 280px;
+                padding: 25px;
+            }
         }
     </style>
 </head>
@@ -438,78 +456,112 @@
 
     <div class="container">
         <div class="header">
-            <a href="../index.html" class="logo">
+            <a href="index.html" class="logo">
                 <i class="fas fa-hands-helping"></i>
                 <span>Insieme</span>
             </a>
-            <p class="subtitle">Find your dream job with us</p>
+            <p class="tagline">Together We Build Stronger Communities</p>
             
-            
+          
             
             <h1 class="page-title">
-                <i class="fas fa-briefcase"></i> Available Jobs
+                <i class="fas fa-compass"></i> Community Hub
             </h1>
         </div>
 
-        <div class="job-listings">
-            <?php
-            include '../assets/db.php';
-
-            $result = mysqli_query($conn, "SELECT * FROM job_posts WHERE status='approved' ORDER BY posted_at DESC");
+        <div class="options-container">
+            <!-- Services Card -->
+            <div class="option-card services-card">
+                <div class="option-icon services-icon">
+                    <i class="fas fa-concierge-bell"></i>
+                </div>
+                <h2 class="option-title">Services</h2>
+                <p class="option-description">
+                    Access a wide range of community services, support programs, and resources tailored to your needs.
+                </p>
+                <a href="service/service_request.php" class="btn-option btn-services">
+                    <i class="fas fa-arrow-right"></i> Explore Services
+                </a>
+            </div>
             
-            if (mysqli_num_rows($result) > 0) {
-                while ($job = mysqli_fetch_assoc($result)) {
-                    echo '
-                    <div class="job-card">
-                        <div class="job-header">
-                            <div>
-                                <h2 class="job-title">' . htmlspecialchars($job['title']) . '</h2>
-                                <p class="company">' . htmlspecialchars($job['company_name']) . '</p>
-                            </div>
-                            <span class="job-status">Approved</span>
-                        </div>
-                        
-                        <div class="job-details">
-                            <div class="detail-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>' . htmlspecialchars($job['location']) . '</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-money-bill-wave"></i>
-                                <span>' . htmlspecialchars($job['salary']) . '</span>
-                            </div>
-                        </div>
-                        
-                        <div class="job-description">
-                            <p>' . nl2br(htmlspecialchars($job['description'])) . '</p>
-                            
-                        </div>
-                        
-                        <a href="apply.php?job_id=' . $job['id'] . '" class="apply-btn">
-                            <i class="fas fa-paper-plane"></i> Apply Now
-                        </a>
-                    </div>';
-                }
-            } else {
-                echo '
-                <div class="no-jobs">
-                    <i class="fas fa-search"></i>
-                    <h3>No Jobs Available</h3>
-                    <p>There are currently no job openings. Please check back later.</p>
-                </div>';
-            }
-            ?>
+            <!-- Job Portal Card -->
+            <div class="option-card job-card">
+                <div class="option-icon job-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h2 class="option-title">Job Portal</h2>
+                <p class="option-description">
+                    Find employment opportunities, post jobs, and connect with employers in our community.
+                </p>
+                <a href="jobs/list_jobs.php" class="btn-option btn-jobs">
+                    <i class="fas fa-arrow-right"></i> Find Jobs
+                </a>
+            </div>
+            
+            <!-- Community Chat Card -->
+            <div class="option-card chat-card">
+                <div class="option-icon chat-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h2 class="option-title">Community Chat</h2>
+                <p class="option-description">
+                    Connect with other community members, share ideas, and discuss important topics.
+                </p>
+                <a href="chat/chat.html" class="btn-option btn-chat">
+                    <i class="fas fa-arrow-right"></i> Join Conversation
+                </a>
+            </div>
+            
+            <!-- Map Card -->
+            <div class="option-card map-card">
+                <div class="option-icon map-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h2 class="option-title">Community Map</h2>
+                <p class="option-description">
+                    Discover local resources, services, and events happening in your neighborhood.
+                </p>
+                <a href="map/map.html" class="btn-option btn-map">
+                    <i class="fas fa-arrow-right"></i> Explore Map
+                </a>
+            </div>
+        </div>
+        
+        <h2 class="page-title">
+            <i class="fas fa-star"></i> Why Choose Insieme?
+        </h2>
+        
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-users"></i>
+                <h3>Community Focused</h3>
+                <p>Designed to bring people together and strengthen local connections.</p>
+            </div>
+            
+           
+            
+            <div class="feature">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h3>Accessible to All</h3>
+                <p>Designed with accessibility in mind to serve everyone in the community.</p>
+            </div>
+            
+            <div class="feature">
+                <i class="fas fa-rocket"></i>
+                <h3>Easy to Use</h3>
+                <p>Intuitive interface that makes it simple to find what you need.</p>
+            </div>
         </div>
 
         <div class="footer">
-            <p>© <?php echo date('Y'); ?> Insieme Job Portal. All rights reserved.</p>
+            <p>© <?php echo date('Y'); ?> Insieme Community Platform. All rights reserved.</p>
         </div>
     </div>
 
     <script>
         // Simple animation for cards when they come into view
         document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.job-card');
+            const cards = document.querySelectorAll('.option-card, .feature');
             cards.forEach((card, index) => {
                 card.style.animationDelay = `${index * 0.1}s`;
                 card.classList.add('fade-in');

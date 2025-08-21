@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+        
+        .job-icon {
+            background-color: rgba(46, 213, 115, 0.2);
+            color: #2ed573;
+        }
+        
+        .service-icon {
+            background-color: rgba(255, 107, 129, 0.2);
+            color: #ff6b81;
+        }
+        
+        .donation-icon {
+            background-color: rgba(75, 108, 183, 0.2);
+            color: #4b6cb7;
+        }
+        
+        .card-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2d3a80;
+        }
+        
+        .card-desc {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        
+        .btn-job {
+            background-color: #2ed573;
+            color: white;
+        }
+        
+        .btn-job:hover {
+            background-color: #23c263;
+        }
+        
+        .btn-service {
+            background-color: #ff6b81;
+            color: white;
+        }
+        
+        .btn-service:hover {
+            background-color: #ff4757;
+        }
+        
+        .btn-donation {
+            background-color: #4b6cb7;
+            color: white;
+        }
+        
+        .btn-donation:hover {
+            background-color: #3a5a9b;
+        }
+        
+        .btn i {
+            margin-right: 10px;
+        }
+        
+        .stats-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .stats-title {
+            font-size: 22px;
+            color: #2d3a80;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #4b6cb7;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Admin Dashboard</h1>
+            <p class="subtitle">Manage your platform activities</p>
+        </header>
+        
+        <div class="dashboard">
+            <div class="card">
+                <div class="card-icon job-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3 class="card-title">Job Post Approval</h3>
+                <p class="card-desc">Review, approve or reject job postings submitted by employers.</p>
+                <a href="jobs/admin_approve_jobs.php" class="btn btn-job"><i class="fas fa-check-circle"></i> Manage Job Posts</a>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon service-icon">
+                    <i class="fas fa-concierge-bell"></i>
+                </div>
+                <h3 class="card-title">Service Request</h3>
+                <p class="card-desc">Manage service requests from users and assign to appropriate providers.</p>
+                <a href="service/admin_view_requests.php" class="btn btn-service"><i class="fas fa-tasks"></i> Handle Requests</a>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon donation-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3 class="card-title">Donation Availability</h3>
+                <p class="card-desc">Manage donation listings and availability status for donation drives.</p>
+                <a href="assdonation/admin_requests.php" class="btn btn-donation"><i class="fas fa-heart"></i> Manage Donations</a>
+            </div>
+        </div>
+        
+        <div class="stats-section">
+            <h2 class="stats-title">Platform Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-briefcase fa-2x"></i>
+                    <div class="stat-number">42</div>
+                    <div class="stat-label">Pending Job Posts</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-concierge-bell fa-2x"></i>
+                    <div class="stat-number">18</div>
+                    <div class="stat-label">Service Requests</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-hand-holding-heart fa-2x"></i>
+                    <div class="stat-number">27</div>
+                    <div class="stat-label">Active Donations</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-users fa-2x"></i>
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple animation for numbers
+        document.addEventListener('DOMContentLoaded', function() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach(number => {
+                const target = parseInt(number.textContent);
+                let current = 0;
+                const duration = 2000; // in milliseconds
+                const steps = 50;
+                const increment = target / steps;
+                const stepTime = duration / steps;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        number.textContent = target;
+                    } else {
+                        number.textContent = Math.round(current);
+                    }
+                }, stepTime);
+            });
+        });
+    </script>
+</body>
+</html>
